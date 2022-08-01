@@ -1,0 +1,39 @@
+name: test-graphql
+schema: schema.api.graphql
+authenticationType: API_KEY
+apiKeys:
+  - apiKey
+mappingTemplatesLocation: mapping-templates
+mappingTemplates: ${file(./Resources/AppSyncResources/AppSyncMappingTemplates.yml)}
+
+dataSources:
+  - type: AWS_LAMBDA
+    name: createProduct
+    description: 'Lambda'
+    config:
+      functionName: createProduct
+      iamRoleStatements: ${file(./Resources/AppSyncResources/AppSyncRole.yml)}
+  - type: AWS_LAMBDA
+    name: getProduct
+    description: 'Lambda'
+    config:
+      functionName: getProduct
+      iamRoleStatements: ${file(./Resources/AppSyncResources/AppSyncRole.yml)}
+  - type: AWS_LAMBDA
+    name: getAllProduct
+    description: 'Lambda'
+    config:
+      functionName: getAllProduct
+      iamRoleStatements: ${file(./Resources/AppSyncResources/AppSyncRole.yml)}
+  - type: AWS_LAMBDA
+    name: updateProduct
+    description: 'Lambda'
+    config:
+      functionName: updateProduct
+      iamRoleStatements: ${file(./Resources/AppSyncResources/AppSyncRole.yml)}
+  - type: AWS_LAMBDA
+    name: deleteProduct
+    description: 'Lambda'
+    config:
+      functionName: deleteProduct
+      iamRoleStatements: ${file(./Resources/AppSyncResources/AppSyncRole.yml)}

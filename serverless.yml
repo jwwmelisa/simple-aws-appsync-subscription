@@ -1,0 +1,70 @@
+service: test-graphql
+frameworkVersion: '2'
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  lambdaHashingVersion: 20201221
+  region: ap-southeast-1
+  stage: dev
+  iam:
+    role: arn:aws:iam::234758500005:role/service-role/api-new-role
+
+plugins:
+  - serverless-plugin-split-stacks
+  - serverless-appsync-plugin
+  - serverless-dotenv-plugin
+
+functions:
+  createProduct:
+    handler: functions/createProduct.handler
+    # name: createBlog-${self:provider.stage}
+    # package:
+      # individually: true
+      # artifact: "./dist/createBlog.zip"
+  getProduct:
+    handler: functions/getProduct.handler
+  #   # name: getProduct-${self:provider.stage}
+  #   # package:
+  #     # individually: true
+  #     # artifact: "./dist/getProduct.zip"
+  getAllProduct:
+    handler: functions/getAllProduct.handler
+  # updateBlog:
+  #   handler: functions/updateBlog/index.handler
+  #   # name: updateBlog-${self:provider.stage}
+  #   # package:
+  #     # individually: true
+  #     # artifact: "./dist/updateBlog.zip"
+  updateProduct:
+    handler: functions/updateProduct.handler
+  deleteProduct:
+    handler: functions/deleteProduct.handler
+  #   # name: deleteProduct-${self:provider.stage}
+  #   # package:
+  #     # individually: true
+  #     # artifact: "./dist/deleteProduct.zip"
+
+custom:
+  splitStacks:
+    nestedStackCount: 4
+    perFunction: false
+    perType: true
+    perGroupFunction: false
+  appSync: ${file(serverless-appsync-api.yml)}
+
+resources:
+  Resources:
+    BlogsTable:
+      Type: 'AWS::DynamoDB::Table'
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: tableProduct

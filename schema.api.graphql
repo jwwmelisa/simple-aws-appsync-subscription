@@ -1,0 +1,45 @@
+schema {
+    query: Query
+    mutation: Mutation
+    subscription: Subscription
+}
+
+type Query {
+    # Query for user details
+    getProduct(id: ID!): Product
+    getAllProduct(id: ID): Product
+}
+
+type Mutation {
+    # Creat product
+    createProduct(input: CreateProductInput!): Product
+    updateProduct(input: UpdateProductInput): Product
+    deleteProduct(id: ID!): AWSJSON
+}
+
+type Subscription {
+    newUpdate: Product
+	    @aws_subscribe(mutations: ["updateProduct"])
+}
+
+input CreateProductInput {
+    product: String!
+    price: String!
+}
+
+input UpdateProductInput {
+    id: ID
+    product: String
+    price: String
+}
+
+type Product {
+    id: ID
+    product: String
+    price: String
+}
+
+
+
+
+
