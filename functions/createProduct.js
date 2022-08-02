@@ -15,10 +15,8 @@ module.exports.handler = async (event) => {
   try {
     await createProduct(params);
     return {
-      statusCode: 201,
-      body: {
-        message: 'Success',
-        input: params.Item}
+      statusCode: 200,
+      body: params.Item
     }
   } catch(err){
     console.log("ERROR: ", err);

@@ -11,8 +11,8 @@
 - dataSource: getAllProduct
   type: Query
   field: getAllProduct
-  request: "Query.getAllProduct.request.vtl"
-  response: "Query.getAllProduct.response.vtl"
+  request: false
+  response: false
 - dataSource: updateProduct
   type: Mutation
   field: updateProduct

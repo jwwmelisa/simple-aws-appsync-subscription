@@ -7,7 +7,7 @@ schema {
 type Query {
     # Query for user details
     getProduct(id: ID!): Product
-    getAllProduct(id: ID): Product
+    getAllProduct: [Product]
 }
 
 type Mutation {
@@ -38,8 +38,3 @@ type Product {
     product: String
     price: String
 }
-
-
-
-
-

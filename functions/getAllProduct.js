@@ -7,11 +7,13 @@ module.exports.handler = async(event) => {
     TableName: "tableProduct"
   }
   try{
-    const result = await getAllProduct(params);
-    return{
-      statusCode: 200,
-      body: result
-    }
+    const resData = await getAllProduct(params);
+    console.log('ini atas Items', resData)
+    const result = resData.map(item => item)
+    console.log('ini result', result);
+    return {
+      statusCode: 200
+    }, result
   }catch(err){
     return {
       statusCode: 500,
